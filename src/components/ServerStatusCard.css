@@ -1,19 +1,50 @@
+/* Card Container */
 .server-card {
-    border: 1px solid #ccc;
+    border: 1px solid #ddd;
+    border-radius: 8px;
     padding: 16px;
     margin: 8px;
-    border-radius: 4px;
+    width: 250px; /* Set a fixed width */
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1); /* Subtle shadow for a card effect */
+    background-color: #f9f9f9;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    transition: transform 0.2s ease-in-out;
+}
+
+/* Add hover effect */
+.server-card:hover {
+    transform: translateY(-4px);
+    box-shadow: 0 4px 16px rgba(0, 0, 0, 0.2);
+}
+
+/* Server URL Styling */
+.server-card h3 {
+    font-size: 16px;
+    font-weight: 600;
+    color: #333;
+    margin-bottom: 12px;
+    word-wrap: break-word; /* Prevents text overflow */
+    text-align: center; /* Center-align the text */
+}
+
+/* Server Status Styling */
+.server-card p {
+    font-size: 14px;
+    color: #555;
     text-align: center;
-    width: 200px;
-    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+    padding: 8px;
+    border-radius: 4px;
 }
 
-.server-card.up {
-    border-color: green;
-    color: green;
+/* Status Colors */
+.server-card.up p {
+    background-color: #d4edda;
+    color: #155724;
 }
 
-.server-card.down {
-    border-color: red;
-    color: red;
+.server-card.down p {
+    background-color: #f8d7da;
+    color: #721c24;
 }
