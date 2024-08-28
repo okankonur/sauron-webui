@@ -1,0 +1,19 @@
+.server-card {
+    border: 1px solid #ccc;
+    padding: 16px;
+    margin: 8px;
+    border-radius: 4px;
+    text-align: center;
+    width: 200px;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+}
+
+.server-card.up {
+    border-color: green;
+    color: green;
+}
+
+.server-card.down {
+    border-color: red;
+    color: red;
+}
