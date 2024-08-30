@@ -1,34 +1,24 @@
 .dashboard {
+    padding: 20px;
+    background-color: #f0f4f8;  /* Light, neutral background color */
+    min-height: 100vh;  /* Ensure the dashboard covers the full height of the viewport */
     display: flex;
     flex-direction: column;
     align-items: center;
-    padding: 20px;
-    gap: 16px;
 }
 
-.last-fetch-time {
+.fetch-times {
     margin-bottom: 20px;
     font-size: 14px;
-    color: #555;
+    color: #333;
+    font-family: 'Roboto', sans-serif;
+    text-align: center;  /* Center the text */
 }
 
-/* Existing styles */
-.arrow-container {
+.grid-container {
     display: flex;
-    flex-direction: column;
-    align-items: center;
-    margin-top: 10px;
-}
-
-.arrow-style {
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    margin-top: 5px;
-}
-
-.arrow {
-    margin-top: 5px;
-    font-size: 24px;
-    color: #555;
+    flex-direction: row;
+    flex-wrap: wrap;   /* Allows items to wrap to the next line */
+    gap: 20px;         /* Space between items */
+    
 }

@@ -1,5 +1,15 @@
 .App {
   text-align: center;
+  font-family: 'Roboto', sans-serif;
+}
+
+.App h1 {
+  font-size: 2.5rem;  /* Large, prominent font size */
+  color: #452ec7;  /* Soft blue color for the h1 */
+  text-align: center;  /* Center the h1 */
+  margin-bottom: 40px;  /* Space below the h1 */
+  text-shadow: 1px 1px 3px rgba(0, 0, 0, 0.2);  /* Subtle shadow for depth */
+  
 }
 
 .App-logo {

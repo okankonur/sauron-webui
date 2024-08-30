@@ -1,5 +1,6 @@
 import React from 'react';
 import ServerStatusDashboard from './components/ServerAppStatusDashboard';
+import './App.css'
 
 function App() {
     return (

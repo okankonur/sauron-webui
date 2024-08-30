@@ -3,9 +3,13 @@ import axios from 'axios';
 import ServerAppStatusCard from './ServerAppStatusCard';
 import './ServerAppStatusDashboard.css';
 
+
+const FETCH_INTERVAL = 30000; 
+
 const ServerAppStatusDashboard = () => {
     const [apps, setApps] = useState([]);  // State to store the list of apps
     const [lastFetchTime, setLastFetchTime] = useState(null);  // State to store the last fetch time
+    const [nextFetchTime, setNextFetchTime] = useState(null);
 
     useEffect(() => {
         // Function to fetch app statuses
@@ -15,7 +19,11 @@ const ServerAppStatusDashboard = () => {
                 console.log("response data: ", response.data);
                 if (Array.isArray(response.data)) {
                     setApps(response.data);
+                    
+                    const currentTime = new Date();
+
                     setLastFetchTime(new Date().toLocaleString());  // Update the last fetch time
+                    setNextFetchTime(new Date(currentTime.getTime() + FETCH_INTERVAL).toLocaleString());
                 } else {
                     console.error('Expected an array, but got:', typeof response.data);
                 }
@@ -26,9 +34,8 @@ const ServerAppStatusDashboard = () => {
 
         // Initial fetch
         fetchAppStatuses();
-
-        // Set up interval to fetch app statuses every 5 seconds
-        const intervalId = setInterval(fetchAppStatuses, 30000);
+        
+        const intervalId = setInterval(fetchAppStatuses, FETCH_INTERVAL);
 
         // Cleanup interval on component unmount
         return () => clearInterval(intervalId);
@@ -36,20 +43,29 @@ const ServerAppStatusDashboard = () => {
 
     return (
         <div className="dashboard">
-            <div className="last-fetch-time">
-                <strong>Last Fetch Time:</strong> {lastFetchTime || 'Fetching...'}
-            </div>
-            {apps.map((app) => (
-                <div key={app.url} style={{ position: 'relative', marginBottom: '40px' }}>
-                    <ServerAppStatusCard 
-                        url={app.url} 
-                        name={app.name}
-                        status={app.status} 
-                        ip={app.ip}
-                        dependencies={app.dependencies}
-                    />
+            <div className="fetch-times">
+                <div>
+                    <strong>Last Fetch Time:</strong> {lastFetchTime || 'Fetching...'}
                 </div>
-            ))}
+                <div>
+                    <strong>Next Fetch Time:</strong> {nextFetchTime || 'Calculating...'}
+                </div>
+            </div>
+            <div className="grid-container">
+                {apps.map((app) => (
+
+                    <div key={app.url}>
+                        <ServerAppStatusCard
+                            url={app.url}
+                            name={app.name}
+                            status={app.status}
+                            ip={app.ip}
+                            dependencies={app.dependencies}
+                        />
+                    </div>
+
+                ))}
+            </div>
         </div>
     );
 };

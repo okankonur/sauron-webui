@@ -1,15 +1,16 @@
 .server-card {
     border: 1px solid #ddd;
-    border-radius: 8px;
+    border-radius: 12px;
     padding: 16px;
-    margin: 8px;
-    width: 250px;
+    width: 300px; /* Ensure each card has a fixed width */
     box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
     background-color: #f9f9f9;
     display: flex;
     flex-direction: column;
     justify-content: space-between;
     transition: transform 0.2s ease-in-out;
+    box-sizing: border-box; /* Include padding and border in the width calculation */
+    font-family: 'Roboto', sans-serif;
 }
 
 .server-card:hover {
@@ -33,6 +34,14 @@
     padding: 8px;
     border-radius: 4px;
 }
+
+.server-card p.url {
+    white-space: nowrap;       /* Prevent the text from wrapping to the next line */
+    overflow: hidden;          /* Hide the overflow */
+    text-overflow: ellipsis;   /* Show an ellipsis (...) if the text overflows */
+    text-align: center;        /* Center the text */
+}
+
 
 .server-card.up p {
     background-color: #d4edda;
@@ -59,6 +68,7 @@
 
 .dependencies ul {
     padding-left: 20px;
+    text-align: left;
 }
 
 .dependencies li {

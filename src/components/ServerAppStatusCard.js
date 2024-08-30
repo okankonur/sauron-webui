@@ -4,8 +4,9 @@ import './ServerAppStatusCard.css';
 const ServerAppStatusCard = ({ url, name, status, ip, dependencies }) => {
     return (
         <div className={`server-card ${status.toLowerCase()}`}>
-            <h3>{url}</h3>
+            <h3>{name}</h3>
             <p>Status: {status}</p>
+            <p className="url">URL: {url}</p>
             <p>IP: {ip}</p>
             {dependencies.length > 0 && (
                 <div className="dependencies">
