@@ -10,6 +10,7 @@ const ServerAppStatusDashboard = () => {
     const [apps, setApps] = useState([]);  // State to store the list of apps
     const [lastFetchTime, setLastFetchTime] = useState(null);  // State to store the last fetch time
     const [nextFetchTime, setNextFetchTime] = useState(null);
+    const [fetchTrigger, setFetchTrigger] = useState(false);
 
     useEffect(() => {
         // Function to fetch app statuses
@@ -24,6 +25,11 @@ const ServerAppStatusDashboard = () => {
 
                     setLastFetchTime(new Date().toLocaleString());  // Update the last fetch time
                     setNextFetchTime(new Date(currentTime.getTime() + FETCH_INTERVAL).toLocaleString());
+
+                    // Trigger animation
+                    setFetchTrigger(true);
+                    setTimeout(() => setFetchTrigger(false), 500); // Remove animation class after animation duration
+
                 } else {
                     console.error('Expected an array, but got:', typeof response.data);
                 }
@@ -44,7 +50,7 @@ const ServerAppStatusDashboard = () => {
     return (
         <div className="dashboard">
             <div className="fetch-times">
-                <div>
+                <div className={fetchTrigger ? 'animate-fetch' : ''}>
                     <strong>Last Fetch Time:</strong> {lastFetchTime || 'Fetching...'}
                 </div>
                 <div>
