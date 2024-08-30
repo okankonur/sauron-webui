@@ -11,6 +11,7 @@ const ServerAppStatusDashboard = () => {
     const [lastFetchTime, setLastFetchTime] = useState(null);  // State to store the last fetch time
     const [nextFetchTime, setNextFetchTime] = useState(null);
     const [fetchTrigger, setFetchTrigger] = useState(false);
+    const [error, setError] = useState(null);  // Track fetch errors
 
     useEffect(() => {
         // Function to fetch app statuses
@@ -30,11 +31,26 @@ const ServerAppStatusDashboard = () => {
                     setFetchTrigger(true);
                     setTimeout(() => setFetchTrigger(false), 500); // Remove animation class after animation duration
 
+                    setError(null);
+
                 } else {
                     console.error('Expected an array, but got:', typeof response.data);
+                    setError({
+                        message: 'Unexpected response format.',
+                        details: JSON.stringify(response.data, null, 2)
+                    });
                 }
-            } catch (error) {
+            } catch (err) {
                 console.error('Error fetching app statuses:', error);
+                const errorDetails = {
+                    message: err.message,
+                    code: err.code,
+                    status: err.response ? err.response.status : 'No response',
+                    statusText: err.response ? err.response.statusText : 'Unknown error',
+                    data: err.response ? JSON.stringify(err.response.data, null, 2) : 'No response data',
+                };
+                
+                setError(errorDetails);
             }
         };
 
@@ -57,6 +73,21 @@ const ServerAppStatusDashboard = () => {
                     <strong>Next Fetch Time:</strong> {nextFetchTime || 'Calculating...'}
                 </div>
             </div>
+
+            {error && (
+                <div className="error-message">
+                    <strong>Error:</strong> {error.message}
+                    {error.code && <div><strong>Error Code:</strong> {error.code}</div>}
+                    {error.status && <div><strong>Status:</strong> {error.status} {error.statusText}</div>}
+                    {error.data && (
+                        <div>
+                            <strong>Details:</strong>
+                            <pre>{error.data}</pre> {/* Display error details in a readable format */}
+                        </div>
+                    )}
+                </div>
+            )}
+            
             <div className="grid-container">
                 {apps.map((app) => (
 
