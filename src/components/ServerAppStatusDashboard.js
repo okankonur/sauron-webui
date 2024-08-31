@@ -5,6 +5,7 @@ import './ServerAppStatusDashboard.css';
 
 
 const FETCH_INTERVAL = 30000; 
+const BACKEND_URL = 'http://localhost:8080/api/health';
 
 const ServerAppStatusDashboard = () => {
     const [apps, setApps] = useState([]);  // State to store the list of apps
@@ -17,7 +18,7 @@ const ServerAppStatusDashboard = () => {
         // Function to fetch app statuses
         const fetchAppStatuses = async () => {
             try {
-                const response = await axios.get('http://localhost:8080/api/health');
+                const response = await axios.get(BACKEND_URL);
                 console.log("response data: ", response.data);
                 if (Array.isArray(response.data)) {
                     setApps(response.data);
@@ -43,6 +44,7 @@ const ServerAppStatusDashboard = () => {
             } catch (err) {
                 console.error('Error fetching app statuses:', error);
                 const errorDetails = {
+                    url: BACKEND_URL,
                     message: err.message,
                     code: err.code,
                     status: err.response ? err.response.status : 'No response',
@@ -77,6 +79,9 @@ const ServerAppStatusDashboard = () => {
             {error && (
                 <div className="error-message">
                     <strong>Error:</strong> {error.message}
+                    <br />
+                    <strong>URL:</strong> {error.url}
+                    <hr />
                     {error.code && <div><strong>Error Code:</strong> {error.code}</div>}
                     {error.status && <div><strong>Status:</strong> {error.status} {error.statusText}</div>}
                     {error.data && (
